@@ -1,0 +1,281 @@
+#selfRegistration body {
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    padding-top: 20px;    
+}
+
+#selfRegistration .regContainer {
+    width: 500px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+
+#selfRegistration #signup {
+
+
+    box-shadow: 
+        0px 0px 0px 5px rgba( 255,255,255,0.4 ), 
+        0px 4px 20px rgba( 0,0,0,0.33 );
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    display: table;
+    position: static;
+}
+
+#selfRegistration form header {
+  background: #3399cc;
+  padding: 10px 10px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+
+}
+
+#selfRegistration #signup .header {
+  background: #3399cc;
+  padding: 10px 10px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+}
+
+#selfRegistration #signup .header h3 {
+
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    
+    
+  background: #3399cc;
+
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;    
+}
+
+#selfRegistration #signup .header p {
+    color: #8f8f8f;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+#selfRegistration #signup .sep {
+    height: 1px;
+    background: #e8e8e8;
+    width: 406px;
+    margin: 0px -25px;
+}
+
+#selfRegistration  #signup .inputs {
+    margin-top: 25px;
+    padding: 0px 25px 25px;
+}
+
+#selfRegistration #signup .inputs label {
+    color: #8f8f8f;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    display: block;
+}
+
+#selfRegistration input::-webkit-input-placeholder {
+    color:    #b5b5b5;
+}
+
+#selfRegistration input:-moz-placeholder {
+    color:    #b5b5b5;
+}
+
+#selfRegistration #signup  input[type=email], input[type=password], input[type=text],  input[type=tel]{
+    background: #f5f5f5;
+    font-size: 1.25rem;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    padding: 13px 10px;
+    width: 220px;
+    margin-bottom: 20px;
+    box-shadow: inset 0px 2px 3px rgba( 0,0,0,0.1 );
+    clear: both;
+}
+
+
+#selfRegistration #signup  input[type=email].ng-valid, input[type=password].ng-valid, input[type=text].ng-valid,  input[type=tel].ng-valid{
+    background: #fff;
+    box-shadow: 0px 0px 0px 3px #fff, inset 0px 2px 3px green, 0px 5px 5px green;
+}
+
+#selfRegistration #signup input[type=email].ng-invalid, input[type=password].ng-invalid, input[type=text].ng-invalid,  input[type=tel].ng-invalid{
+    background: #fff;
+    box-shadow: 0px 0px 0px 3px #fff, inset 0px 2px 3px red, 0px 5px 5px red;
+}
+
+#selfRegistration  #signup  input[type=email]:focus, input[type=password]:focus, input[type=text]:focus,  input[type=tel]:focus {
+    background: #fff;
+
+    outline: none;   
+}
+
+
+
+#selfRegistration #signup .inputs .checkboxy {
+    display: block;
+    position: static;
+    height: 25px;
+    margin-top: 10px;
+    clear: both;
+}
+
+#selfRegistration #signup .inputs input[type=checkbox] {
+    float: left;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+#selfRegistration #signup .inputs label.terms {
+    float: left;
+    font-size: 14px;
+    font-style: italic;
+}
+
+#selfRegistration #signup .inputs input[type=submit] {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+        background: -moz-linear-gradient(
+        top,
+        #b9c5dd 0%,
+        #a4b0cb);
+    background: #3399cc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #737b8d;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: table;
+    position: static;
+    clear: both;
+}
+
+#selfRegistration #signup .inputs input[type=submit]:hover {
+  background: #ff5252;
+}
+
+#selfRegistration form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+        background: -moz-linear-gradient(
+        top,
+        #b9c5dd 0%,
+        #a4b0cb);
+    background: #3399cc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #737b8d;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: table;
+    position: static;
+    clear: both;
+}
+#selfRegistration form button:hover {
+  background: #ff5252;
+}
+
+#selfRegistration #cancelSelfReg  button
+{
+    width: 40%;
+    margin-top: 20px;
+    padding: 5px 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+        background: -moz-linear-gradient(
+        top,
+        #b9c5dd 0%,
+        #a4b0cb);
+    background: #3399cc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #737b8d;
+    -moz-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    -webkit-box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    box-shadow:
+        0px 5px 5px rgba(000,000,000,0.1),
+        inset 0px 1px 0px rgba(255,255,255,0.5);
+    text-shadow:
+        0px 1px 3px rgba(000,000,000,0.3),
+        0px 0px 0px rgba(255,255,255,0);
+    display: table;
+    position: static;
+    clear: both;
+}
+
+#selfRegistration #cancelSelfReg button:hover {
+  background: #ff5252;
+}
+
+#selfRegistrationSuccess  button
+{
+  font-family: inherit;
+  color: red;
+  background: #FFFFFF;
+  outline: none;
+  border: none;
+  padding: 5px 15px;
+  font-size: 1.3em;
+  font-weight: 400;
+  border-radius: 0px;
+
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}

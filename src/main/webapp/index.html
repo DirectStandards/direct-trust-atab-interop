@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html ng-app="atabInterop">
+<head>
+    <link rel="shortcut icon" href="favicon.ico" />
+
+    <link rel="stylesheet" href="css/atabTest.css">
+    <link rel="stylesheet" href="css/login.css">    
+    <link rel="stylesheet" href="css/selfReg.css">        
+	<Title>DirectTrust Bundle Interoperability</Title>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-cookies.js"></script>	
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/loginService.js"></script>   
+</head>
+
+
+
+<body ng-controller="atabController">
+
+<div class="holder">
+
+
+	<div id="top">
+	
+		<div id="banner">
+		    <img class="centerImg" src="images/direct_trust_logo-min.png" width="400px"  height="125px"/>
+		</div>
+		<div class="bannerHeader"> 
+		    <div class="bannerLeft" ng-hide="!loggedIn">
+		    	<label class="bannerLabel">Bundle Interoperability Testing</label>
+		   	</div>  
+		    <div class="bannerRight" ng-hide="!loggedIn">
+		        <div>
+					<label>Welcome {{loggedInUserName}}</label><button  class="logoutButton" type="button" ng-click="logout()">Logout</button>
+				</div>
+		   	</div>   
+		    <div class="bannerCenter" ng-hide="loggedIn">
+		    	<label class="bannerLabel">Bundle Interoperability Testing</label>
+		   	</div>      	
+		</div>
+	</div>
+	<p>
+	
+	<div id="content">
+		<div ng-hide="loggedIn" >
+		    <!-- START Login -->
+		    <div ng-show="signIn" id="login">
+		        <div class="container welcomeContent">
+		        	The Interoperability Testing App executes a series of interoperability tests for a HISP's sending and receiving of Direct messages to validate
+		        	compliance not only with DirectTrust policies, 
+		        	but also basic compliance with the Applicability Statement for Secure Health Transport.  
+					<p><p>
+					To gain access to the tool, click the "Self Registration" link, and fill out all requested information.  Upon submission, a DirectTrust
+					administrator will review the information and grant access if applicable.
+					<p><p>
+					<b>NOTE:</b>  You will need to include the DirectTrust Interop Validation 
+					<a href="https://services.directtrust.org/interop-validation-bundle/">Bundle</a> into your system to exchange messages
+					with this application.
+					
+		        </div>	
+				<form id="login">
+			
+				  <header>Login</header>
+				  <label>Username </label>
+				  <input type="text" ng-model="username" required/>
+				  <!--  
+				  <div class="help">At least 6 character</div>
+				  -->
+				  <label>Password </label>
+				  <input type="password" ng-model="password" required/>
+				  <!--  
+				  <div class="help">Use upper and lowercase lettes as well</div>
+				  -->
+				  <button ng-click="login()">Login</button>
+				  <div ng-show="loginErrorMessage && loginErrorMessage.length > 0"class="error">{{loginErrorMessage}}</div>
+				</form>
+				<p/>
+			
+				<div align="center" id="selfHelp">
+			
+			      <div>
+				  	<button ng-click="selfReg=true; signIn = false;">Self Registration</button>
+				  </div>
+				  <div>
+				  	<button ng-click="forgotPassword=true; signIn = false;" class="forgotPass">Forgot Password?</button>
+				  </div>
+				</div>
+			</div>
+			<!-- End Login -->
+		    <!-- START self reg -->	
+			<div ng-show="selfReg" >
+		
+				<!--  START REG INPUT FORM -->
+				<div id="selfRegistration" ng-show="inputSelfRegForm">
+			        <div class="regContent">
+						Please fill out all information and click "Register Now".
+			        </div>	
+				    <div class="regContainer">
+				        <div ng-show="showMissingRegFields">
+						  <label class="invalidAddressLabel">Missing required field.</label>
+					   </div>
+				       <div ng-show="regEmailAddressDontMatch">
+						  <label class="invalidAddressLabel">Email addresses do not match.</label>
+					   </div>			   
+				        <div ng-show="showUserNameTaken">
+						  <label class="invalidAddressLabel">Username {{selfRegUsername}} has already been taken.  Please choose a different username.</label>
+					   </div>	
+				        <div ng-show="showAddRegGeneralFailure">
+						  <label class="invalidAddressLabel">Unexpected esrror occurred registering user.</label>
+					   </div>				   		   
+					    <form ng-model="signupForm" name="signupForm" id="signup" ng-submit="selfRegUser()" novalidate>
+					        <header>Register</header>
+					
+					        <div class="inputs">
+					        
+					            <input type=text ng-model="selfRegFirstName" placeholder="First Name*" autofocus required/>
+					        
+					            <input type=text ng-model="selfRegLastName" placeholder="Last Name*" required/>
+					        
+					            <input type=text ng-model="selfRegUsername" placeholder="Username*" required/>
+					        
+					            <input type=password ng-model="selfRegPassword" placeholder="Password*" required/>
+					        
+					            <input type=text ng-model="selfRegCity" placeholder="City*" required/>        
+					
+					            <input type=text ng-model="selfRegState" placeholder="State*" required/>    
+		
+					            <input type=text ng-model="selfRegOrg" placeholder="Organization/Company*" required/>  
+					        
+					            <input type=tel ng-model="selfRegPhone" placeholder="Phone Number*" required/>           
+					        
+					            <input type="email" ng-model="selfRegEmail" placeholder="e-mail*" required/>
+		
+					            <input type="email" ng-model="selfRegEmailRepeat" placeholder="Retype e-mail*" required/>
+					            
+					            <div class="checkboxy">
+					                <label class="terms">* - Required Field</label>
+					            </div>
+		<!--  			            
+					            <div class="checkboxy">
+					            <label>
+					            <a href="http://www.snaphost.com/captcha" alt="captcha image" title="captcha image"
+								style="text-decoration:none; font-size:11px; font-family:Verdana, Arial, Helvetica; color:#000099;">
+								This web form is protected from SPAM by
+								<span style="text-decoration:underline;">SnapHost.com</span></a>
+					            </label>
+					            </div>
+					            
+								<table border="0" cellpadding="0" cellspacing="0">
+								<tr>
+								    <td colspan="2" style="padding-bottom:18px;">
+					
+								<tr valign="top">
+								<td>
+								<i>Enter web form code:</i>
+								<input ng-model="captchaCode" id="skip_CaptchaCode" name="skip_CaptchaCode" type="text" style="width:80px; height:41px; border:1px solid #999999" maxlength="6" required/>
+								</td><td>
+								<a href="http://www.snaphost.com/captcha/ReadyForms/"><img id="CaptchaImage" alt="html email forms" title="html email forms"
+								style="margin-left:20px; border:1px solid #999999"
+								src="http://www.SnapHost.com/captcha/CaptchaImage.aspx?id=Z7NFE3NZUJGK&ImgType=2" /></a>
+								<br /><a href="#" onclick="return reloadCaptchaImage('CaptchaImage');"><span style="font-size:12px; padding-left:21px;">reload image</span></a>
+								</td>
+								</tr>
+								</table>            
+		-->			            
+					            <input type="submit" value="REGISTER NOW"/>
+					            <!--  
+					            <button ng-click="selfRegUser()">REGISTER NOW</button>
+					            -->
+					        </div>
+					
+					    </form>
+					    <p>
+						<div align="center">
+					
+					      <div id="cancelSelfReg">
+						  	<button ng-click="cancelSelfReg()">Return To Login</button>
+						  </div>
+						</div>
+				    </div>
+				</div>
+				<!--  END REG INPUT FORM -->		
+				
+			    <!--  START REG SUCCESS FORM -->
+			    <div id="selfRegistrationSuccess" ng-show="selfRegSuccess" align="center">
+			    	<div class="container welcomeContent">
+				    	Your registration request has been received and will be reviewed by DirectTrust.
+				    	You will receive an email at {{selfRegEmail}} when your access has been approved.  If you do not receive an email within 2 business days, check
+				    	your spam/junk folder or contact DirectTrust at 
+				    	<a href="admin@directtrust.org?Subject=Interop Bundle App Access" target="_top">admin@directtrust.org.</a>
+			    	</div>
+			        <div id="cancelSelfReg">
+					  	<button ng-click="cancelSelfReg()">Return To Login</button>
+					</div>
+			    </div>
+			    <!--  END REG SUCCESS FORM -->
+			</div>	
+		    <!--  END self reg -->		
+		    <!-- START forgot password -->	
+			<div ng-show="forgotPassword" id="forgotPassword" >   
+				<div  ng-show="inputForgotPassword">
+		
+				    <div class="regContainer">
+						<form id="changePasswordForm" >
+							<div align="center">
+						      <label>Enter your username to request a password change.</label>
+						      <p>
+						      <label>Username:</label>
+						      <input type="text" placeholder="Username" name="changePassUsername" ng-model="changePassUsername" required/>
+						      <p>
+						      <button ng-click="requestChangePassword()">Request Password Change</button>
+						      <div id="cancelForgotPassword">
+							  	<button ng-click="cancelForgotPassword()">Return To Login</button>
+							  </div>
+							</div>
+						</form>
+				        
+				    </div>
+				</div>	
+			    <div id="forgotPasswortRequest" ng-show="forgotPasswordSend" align="center"> 
+			    	<label class="centerBold">A password change email has been sent to the registered contact email address</label>
+			        <div id="completedForgotPassword">
+					  	<button ng-click="cancelForgotPassword()">Return To Login</button>
+					</div>	    
+			    </div>
+			</div>
+		</div>
+		
+		
+		<!--  Main Application View -->
+		<div ng-show="loggedIn" class="container">
+		<p></p>
+		    <ul class="nav nav-tabs">
+		      <li class="active" id="tabReceive"><a data-toggle="tab" href="#receive">Message Receive Tests</a></li>
+		      <li><a data-toggle="tab" href="#send">Message Send Tests</a></li>
+		      <li ng-show="adminUser"><a data-toggle="tab" href="#admin">Admin</a></li>      
+		    </ul>	
+			<div class="tab-content">
+			    <!--  START Receive test tab -->
+			    <div id="receive" class="tab-pane fade in active">
+			    
+					<div ng-hide="testRunning" id="testInput">
+				        <div class="toolContent">
+							The Message Receive Tests execute a series of tests that evaluate a HISP's ability to receive Direct messages from another HISP in accordance
+							with DirectTrust policies.  To execute the tests, enter the Direct email address that will receive the messages in the To Address field; this address should
+							be a valid Direct address within your HISP.  Optionally, you may enter a non-Direct email address indicating where a testing report will be sent.
+							You may also change the amount of time that the tool will allow for the tests to complete (maxiumm of 5 minutes).
+							<p><p>
+							Once all required information is entered, click Start Test to initiate the tests.  Once the tests have been completed, you have the option of sending
+							a report to an additional non-Direct email address.  <b>NOTE:</b> You may need to check your spam/junk folder for reports. 
+							
+				        </div>				
+						<form id="testSubmitionForm" name="testSubmitionForm">
+							<label>To Address:</label>
+							<input class="addressTextBox" type="email" ng-model="toAddress" name="toAddress" required><br>
+							<label>Report Address:</label>
+							<input class="addressTextBox" type="email" ng-model="reportAddress" name="reportAddress"><br>
+							<label>Test Timeout:</label>
+						    <select ng-model="testTimeout" ng-options="timeout.name for timeout in timoutOptions" ng-init="testTimeout = testTimeout || timoutOptions[0]">
+						    </select>
+					
+						    minutes<br>
+							<input ng-click="submitTest()" class="startTestSubmit" type="submit" value="Start Test"/><br><br>
+							<label ng-hide="validToAddress" class="invalidAddressLabel">Invalid To Address</label>
+							<label ng-hide="validReportAddress" class="invalidAddressLabel">Invalid Report Address</label>		
+						</form>
+					</div>
+					<div ng-Show="testRunning" id="testResults"> 
+					    <div>
+					    	<label class="resultDataLabel">Test Progress: </label>{{currentTestProgress}}<br>
+					    	<label class="resultDataLabel">Elapsed Time: </label>{{elapsedTestTime | number:0}} seconds<br>
+					    	<label class="resultDataLabel">Test Target: </label>{{toAddress}}<br>    
+					    	<div ng-show="reportAddress"><label class="resultDataLabel">Report address: </label>{{reportAddress}}<br></div>    	
+					    	<br>
+					    	<div ng-show="resetAvail" >
+					
+							  <label>Send Report To:</label>
+							  <input multiple="true" class="addressTextBox" type="email" ng-model="additionalReportAddress" name="additionalReportAddress"/>		
+							  <input ng-click="sendReport()" type="submit" value="Send Report To Additional Address"/><br>
+							  <div ng-hide="validAdditionalReportToAddress">
+							     <label  class="invalidAddressLabel">Invalid Report Address</label><br>		
+							  </div>
+							  <div ng-show="additionalReportSent">
+							     <label  class="reportSentLabel">Report Sent</label><br>		
+							  </div>
+					
+							  <label/>   	
+							  <br><input ng-click="resetRecieveForm()" type="submit" value="Reset Test Form"/><br><br>  
+						
+					 		</div>
+					 		<br>
+					   	</div>
+						<p><p>
+						<div ng-repeat="data in resultData">
+							<div id="testResultImage" class="imageIndent">
+								<img ng-show="data.testStatus == 'COMPLETED_SUCCESS'" src="images/checkbox.png" style="width:40px;height:40px;"/>
+								<img class="runningAnimate"  ng-if="true" ng-show="data.testStatus == 'RUNNING'" src="images/running.png" style="width:40px;height:40px;"/>		
+								<img ng-show="data.testStatus != 'RUNNING' && data.testStatus != 'COMPLETED_SUCCESS'" src="images/fail.png" style="width:40px;height:40px;" />			
+							</div>
+							<div id="testResultData" class="resultsIndent">
+								<label class="resultDataLabel">Test Name: </label>{{data.testName}}<br>
+								<label class="resultDataLabel">Test Status: </label>{{data.testStatus}}<br>
+								<label class="resultDataLabel">Test Progress: </label>{{data.comments}}<br>
+								<label class="resultDataLabel" ng-show="data.correlationId != '' && data.correlationId != null">Test Msg Id:</label>{{data.correlationId}}
+						    </div>
+						    <p><p>
+						</div>
+					</div>	
+					
+				</div>
+		  	    <!--  END Receive test tab -->
+			
+				<!--  START Send test tab -->
+				<div id="send" class="tab-pane fade">
+			        <div class="toolContent">
+						The Message Sends Tests are initiated via sending a Direct message from your HISP to the ATAB Send Test Address listed below.  
+						When the tool receives the Direct message from your HISP, it is evaluated against DirectTrust policies, and a report is generated
+						based on the evaluation results.  The results are then sent to one or more registered report addresses.
+						<p><p>
+		                To receive the result report, enter a non-Direct address that will receive the report in the Message Report Address fields and click Load.
+		                You will then need to enter your HISP's Direct addresses (entered as a registered source addresses) 
+		                that will be use to send Direct messages to the testing tool.  Any messages sent from a registered source address to the ATAB Send Test Address will result
+		                in a report message being sent to the Message Report Address.  <b>NOTE:</b> You may need to check your spam/junk folder for reports. 
+			        </div>			
+				
+				    <label class="boldLabel">ATAB Send Test Address: </label>atabValidate@direct.securehealthemail.com
+					<h3>Address Registration</h3>
+					<label class="boldLabel">Message Report Address:</label>
+					<input class="addressTextBox" type="email" ng-model="regedReportAddress" name="regedReportAddress">
+					<input ng-click="loadSourceAddr()" type="submit" value="Load"/>
+					<div ng-hide="validRegReportAddr">
+						<label class="invalidAddressLabel">Invalid Report Address</label>
+					</div>
+					<div ng-show="loadedSourceAddr">
+					   <hr/>
+					   <label class="unboundedBoldLabel">Registered Message Source Address:</label> 
+					   <div id="sourceAddressData" ng-repeat="data in regResultData">
+					        <label class="boldLabel"/>
+					   		<input type="checkbox" id="{{data.registrationId}}" name="{{data.sourceDirectAddress}}" value="{{data.registrationId}}">{{data.sourceDirectAddress}}<br>
+					   </div>
+					   <div ng-hide="noSourcesReged">
+					   	 <label class="boldLabel" />
+					   	 <input ng-click="deleteSourceAddr()" type="submit" value="Delete Selected Sources"/>
+					   </div>
+					   <div ng-show="noSourcesReged">
+					   	 <label class="secondIndentBoldLabel" >No Addresses Registered</label>
+					   </div>
+					   <p><p>
+					   <label class="boldLabel">New Source Address:</label>
+					   <input class="addressTextBox" type="email" ng-model="newSourceAddress" name="newSourceAddress">
+					   <input ng-click="addSourceAddr()" type="submit" value="Add Source Address"/>
+					   <div ng-hide="validAddReportAddr">
+						  <label class="invalidAddressLabel">Invalid Source Address</label>
+					   </div>
+					   <div ng-show="sourceRegAddressAlreadyExist">
+						  <label class="invalidAddressLabel">Source Address Already Registered</label>
+					   </div></div>
+				</div>	
+				<!--  END Send test tab -->	
+			    <!--  START Admin tab -->		
+			    <div id="admin" class="tab-pane fade" ng-show="adminUser">
+			       <h3>User Management</h3>
+			       <div ng-hide="noAminUsers">
+				       <table class="table">
+					     <thead>
+					       <tr>
+					         <th>User Name</th>		       
+					         <th>Name</th>
+					         <th>City, State</th>		
+					         <th>Organization</th>				                  
+					         <th>Email</th>
+					         <th>Phone Number</th>	
+					         <th>Account Status</th>	
+					         <th>Role</th>			         		         	         
+					       </tr>
+					     </thead>	       
+				         <tr id="users" ng-repeat="data in userList" class="{{userStatusToTableClass(data.accountStatus)}}">
+				            <td><input type="checkbox" id="{{data.userId}}" name="{{data.username}}" value="{{data.userId}}"/>{{data.username}}</td>	         
+				            <td>{{data.firstName + " " + data.lastName}}</td>
+				            <td>{{data.addressCity + ", " + data.addressState}}</td>
+				            <td>{{data.organization}}</td>            
+				            <td>{{data.contactEmail}}</td>	 
+				            <td>{{data.contactPhone}}</td>	
+				            <td>
+							    <select ng-model="accStatus[data.username]" ng-options="roleOption.name for roleOption in roleOptions" ng-init="accStatus[data.username] = userStatusToSelectionObject(data.accountStatus) || roleOptions[0]">
+							    </select>	            
+				            </td>	
+				            <td>{{data.role}}</td>	  		            	              	                       
+				         </tr>
+				       </table>
+				       <div ng-show="updatingUsers">
+						  <label class="opInProgress">Updating users.</label>
+					   </div>
+				       <div ng-hide="noAminUsers">
+						  <input ng-click="adminUpdateUser()" type="submit" value="Update Selected Users"/>
+					   </div>
+				   </div>
+				   <div ng-show="noAminUsers">
+				     <label class="unboundedBoldLabel">No Users Registered</label>
+				   </div>
+				</div>
+			    <!--  END Admin tab -->	
+			</div>		
+		</div>
+	</div>
+	
+	<div class="footer">
+		<div class="container footerContent">
+		    Copyright &copy; 2016, DirectTrust.org. All rights reserved.
+		</div>
+	</div>
+
+</div>
+
+</body>
+
+</html>
